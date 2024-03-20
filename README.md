@@ -274,7 +274,7 @@
 
 ## Download
 
-- ~The latest version of **uYouEnhanced** can be found under [Releases](https://github.com/arichornlover/uYouEnhanced/releases/latest).~
+- ~The latest version of **uYouEnhanced** can be found under [Releases](https://github.com/arichornlover/uYouEnhanced/releases/latest).~ Due to a DMCA request, you will now have to manually compile uYouEnhanced.
 - **Compatibility:** Requires iOS/iPadOS 14.0 or later.
 - For AltStore user: 
 
@@ -339,7 +339,7 @@ See [Installation - Wiki](https://github.com/qnblackcat/uYouPlus/wiki/Installati
 
 See [FAQ - Wiki](https://github.com/qnblackcat/uYouPlus/wiki/FAQ).
 
-# Building (optional)
+# Building 
 
 See [qnblackcat/Building - Wiki](https://github.com/qnblackcat/uYouPlus/wiki/Building)
 or [arichornlover/Building - Wiki](https://github.com/arichornlover/uYouEnhanced/wiki/Building).
