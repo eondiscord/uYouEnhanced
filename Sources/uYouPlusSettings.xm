@@ -79,20 +79,6 @@ extern NSBundle *uYouPlusBundle();
     Class YTSettingsSectionItemClass = %c(YTSettingsSectionItem);
     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
 
-    # pragma mark - App Icon Customization
-    YTSettingsSectionItem *appIcon = [%c(YTSettingsSectionItem)
-        itemWithTitle:LOC(@"Change App Icon")
-        titleDescription:nil
-        accessibilityIdentifier:nil
-        detailTextBlock:nil
-        selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-            AppIconOptionsController *appIconController = [[AppIconOptionsController alloc] init];
-            [settingsViewController.navigationController pushViewController:appIconController animated:YES];
-            return YES;
-        }
-    ];
-    [sectionItems addObject:appIcon];
-
     # pragma mark - About
     // SECTION_HEADER(LOC(@"ABOUT"));
 
@@ -148,6 +134,34 @@ extern NSBundle *uYouPlusBundle();
         }
     ];
     [sectionItems addObject:exitYT];
+
+    SECTION_HEADER(LOC(@"📺 App Personalization"));
+    # pragma mark - uYouEnhanced Extras Menu
+    YTSettingsSectionItem *customAppMenu = [%c(YTSettingsSectionItem)
+        itemWithTitle:LOC(@"uYouEnhanced Extras Menu")
+        titleDescription:LOC(@"This menu includes App Color Customization & Clearing the Cache 🗑️")
+        accessibilityIdentifier:nil
+        detailTextBlock:nil
+        selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+            RootOptionsController *rootOptionsController = [[RootOptionsController alloc] init];
+            [settingsViewController.navigationController pushViewController:rootOptionsController animated:YES];
+            return YES;
+        }
+    ];
+    [sectionItems addObject:customAppMenu];
+
+    YTSettingsSectionItem *appIcon = [%c(YTSettingsSectionItem)
+        itemWithTitle:LOC(@"Change App Icon")
+        titleDescription:nil
+        accessibilityIdentifier:nil
+        detailTextBlock:nil
+        selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+            AppIconOptionsController *appIconController = [[AppIconOptionsController alloc] init];
+            [settingsViewController.navigationController pushViewController:appIconController animated:YES];
+            return YES;
+        }
+    ];
+    [sectionItems addObject:appIcon];
 
     # pragma mark - App theme
     SECTION_HEADER(LOC(@"THEME_OPTIONS"));
@@ -240,11 +254,12 @@ extern NSBundle *uYouPlusBundle();
     SWITCH_ITEM2(LOC(@"SLIDE_TO_SEEK"), LOC(@"SLIDE_TO_SEEK_DESC"), @"slideToSeek_enabled");
     SWITCH_ITEM2(LOC(@"Enable Tap To Seek"), LOC(@"Jump to anywhere in a video by single-tapping the seek bar"), @"YTTapToSeek_enabled");
     SWITCH_ITEM(LOC(@"DISABLE_DOUBLE_TAP_TO_SEEK"), LOC(@"DISABLE_DOUBLE_TAP_TO_SEEK_DESC"), @"doubleTapToSeek_disabled");
-//  SWITCH_ITEM2(LOC(@"SNAP_TO_CHAPTER"), LOC(@"SNAP_TO_CHAPTER_DESC"), @"snapToChapter_enabled");
+    SWITCH_ITEM(LOC(@"SNAP_TO_CHAPTER"), LOC(@"SNAP_TO_CHAPTER_DESC"), @"snapToChapter_enabled");
     SWITCH_ITEM2(LOC(@"PINCH_TO_ZOOM"), LOC(@"PINCH_TO_ZOOM_DESC"), @"pinchToZoom_enabled");
     SWITCH_ITEM(LOC(@"YT_MINIPLAYER"), LOC(@"YT_MINIPLAYER_DESC"), @"ytMiniPlayer_enabled");
     SWITCH_ITEM2(LOC(@"STOCK_VOLUME_HUD"), LOC(@"STOCK_VOLUME_HUD_DESC"), @"stockVolumeHUD_enabled");
     SWITCH_ITEM2(LOC(@"Disable pull-to-fullscreen gesture"), LOC(@"Disable the drag gesture to enter vertical fullscreen. Only applies to landscape videos."), @"disablePullToFull_enabled");
+    SWITCH_ITEM(LOC(@"Disable Double tap to skip chapter"), LOC(@"Disable the 2-finger double tap gesture that skips forward/backward by a chapter"), @"disableChapterSkip_enabled");
 
     # pragma mark - Video controls overlay options
     SECTION_HEADER(LOC(@"VIDEO_PLAYER_OPTIONS"));
@@ -254,13 +269,14 @@ extern NSBundle *uYouPlusBundle();
     SWITCH_ITEM(LOC(@"HIDE_YTMUSIC_BUTTON"), LOC(@"HIDE_YTMUSIC_BUTTON_DESC"), @"hideYTMusicButton_enabled");
     SWITCH_ITEM(LOC(@"HIDE_AUTOPLAY_SWITCH"), LOC(@"HIDE_AUTOPLAY_SWITCH_DESC"), @"hideAutoplaySwitch_enabled");
     SWITCH_ITEM(LOC(@"HIDE_SUBTITLES_BUTTON"), LOC(@"HIDE_SUBTITLES_BUTTON_DESC"), @"hideCC_enabled");
+    SWITCH_ITEM(LOC(@"Hide Video Title (in Fullscreen)"), LOC(@"Hides and Disables the Video Title and including the functionality that was shown on the Top Left of the Video Player."), @"hideVideoTitle_enabled");
     SWITCH_ITEM(LOC(@"Hide Collapse (Arrow) Button"), LOC(@"Hides and Disables the Arrow Button in the Top Left of the Video Player."), @"disableCollapseButton_enabled");
     SWITCH_ITEM(LOC(@"Hide Fullscreen Button"), LOC(@"Hides and Disables the Fullscreen Button in the Video Player."), @"disableFullscreenButton_enabled");
     SWITCH_ITEM(LOC(@"HIDE_HUD_MESSAGES"), LOC(@"HIDE_HUD_MESSAGES_DESC"), @"hideHUD_enabled");
     SWITCH_ITEM(LOC(@"HIDE_PAID_PROMOTION_CARDS"), LOC(@"HIDE_PAID_PROMOTION_CARDS_DESC"), @"hidePaidPromotionCard_enabled");
     SWITCH_ITEM2(LOC(@"HIDE_CHANNEL_WATERMARK"), LOC(@"HIDE_CHANNEL_WATERMARK_DESC"), @"hideChannelWatermark_enabled");
     SWITCH_ITEM2(LOC(@"Hide Shadow Overlay Buttons"), LOC(@"Hide the Shadow Overlay on the Play/Pause, Previous, Next, Forward & Rewind Buttons."), @"hideVideoPlayerShadowOverlayButtons_enabled");
-    // SWITCH_ITEM(LOC(@"HIDE_PREVIOUS_AND_NEXT_BUTTON"), LOC(@"HIDE_PREVIOUS_AND_NEXT_BUTTON_DESC"), @"hidePreviousAndNextButton_enabled");
+    SWITCH_ITEM2(LOC(@"HIDE_PREVIOUS_AND_NEXT_BUTTON"), LOC(@"HIDE_PREVIOUS_AND_NEXT_BUTTON_DESC"), @"hidePreviousAndNextButton_enabled");
     SWITCH_ITEM2(LOC(@"RED_PROGRESS_BAR"), LOC(@"RED_PROGRESS_BAR_DESC"), @"redProgressBar_enabled");
     SWITCH_ITEM(LOC(@"HIDE_HOVER_CARD"), LOC(@"HIDE_HOVER_CARD_DESC"), @"hideHoverCards_enabled");
     SWITCH_ITEM2(LOC(@"HIDE_RIGHT_PANEL"), LOC(@"HIDE_RIGHT_PANEL_DESC"), @"hideRightPanel_enabled");
@@ -312,9 +328,12 @@ extern NSBundle *uYouPlusBundle();
     SWITCH_ITEM2(LOC(@"Hide `Your data in YouTube` Section"), LOC(@"App restart is required."), @"disableYourDataInYouTubeSection_enabled");
     SWITCH_ITEM2(LOC(@"Hide `Privacy` Section"), LOC(@"App restart is required."), @"disablePrivacySection_enabled");
     SWITCH_ITEM2(LOC(@"Hide `Live Chat` Section"), LOC(@"App restart is required."), @"disableLiveChatSection_enabled");
+    SWITCH_ITEM2(LOC(@"Hide `Get Youtube Premium` Section"), LOC(@"App restart is required."), @"hidePremiumPromos_enabled");
 
     # pragma mark - UI interface options
     SECTION_HEADER(LOC(@"UI Interface Options"));
+
+    SWITCH_ITEM2(LOC(@"Hide Home Tab"), LOC(@""), @"hideHomeTab_enabled");
 
 YTSettingsSectionItem *lowContrastMode = [YTSettingsSectionItemClass
     switchItemWithTitle:LOC(@"Low Contrast Mode")
@@ -326,8 +345,15 @@ YTSettingsSectionItem *lowContrastMode = [YTSettingsSectionItemClass
             NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
             NSComparisonResult result1 = [appVersion compare:@"17.33.2" options:NSNumericSearch];
             NSComparisonResult result2 = [appVersion compare:@"17.38.10" options:NSNumericSearch];
-            if (result1 == NSOrderedAscending || result2 == NSOrderedDescending) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incompatibile" message:[NSString stringWithFormat:@"LowContrastMode is only available for app versions v17.33.2-v17.38.10. \nYou are currently using v%@. \n\nWorkaround: if you want to use this then I recommend enabling \"Fix LowContrastMode\" Option.", appVersion] preferredStyle:UIAlertControllerStyleAlert];
+            if (result1 == NSOrderedAscending) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Discontinued" message:[NSString stringWithFormat:@"You are using v%@ which is a discontinued version of YouTube that no longer works. Please use v17.33.2-17.38.10 in order to use LowContrastMode.", appVersion] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                [alert addAction:okAction];
+                [settingsViewController presentViewController:alert animated:YES completion:nil];
+                return NO;
+            }
+            else if (result2 == NSOrderedDescending) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incompatible" message:[NSString stringWithFormat:@"LowContrastMode is only available for app versions v17.33.2-v17.38.10. \nYou are currently using v%@. \nWorkaround: if you want to use this then I recommend enabling \"Fix LowContrastMode\" Option.", appVersion] preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                 [alert addAction:okAction];
                 [settingsViewController presentViewController:alert animated:YES completion:nil];
@@ -986,7 +1012,32 @@ YTSettingsSectionItem *lowContrastModeButton = [%c(YTSettingsSectionItem)
     # pragma mark - Miscellaneous
     SECTION_HEADER(LOC(@"MISCELLANEOUS"));
 
-    SWITCH_ITEM(LOC(@"YouTube Premium Logo"), LOC(@"Toggle this to use the official YouTube Premium Logo. App restart is required."), @"premiumYouTubeLogo_enabled");
+    SWITCH_ITEM2(LOC(@"Adblock Workaround"), LOC(@"Uses stronger adblocking code. Can cause blank spots on homepage"), @"uYouAdBlockingWorkaround_enabled");
+
+    YTSettingsSectionItem *fakePremium = [YTSettingsSectionItemClass
+    switchItemWithTitle:LOC(@"Fake Premium")
+    titleDescription:LOC(@"Uses Premium logo and creates fake buttons in the You tab")
+    accessibilityIdentifier:nil
+    switchOn:IS_ENABLED(@"youTabFakePremium_enabled")
+    switchBlock:^BOOL (YTSettingsCell *cell, BOOL enabled) {
+        NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        NSComparisonResult result = [appVersion compare:@"18.35.4" options:NSNumericSearch]; 
+        if (result == NSOrderedAscending) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Incompatible" message:[NSString stringWithFormat:@"Error: The \"You\" Tab doesn't exist in v%@. \nFake Premium is only available for app versions v18.35.4 and higher.", appVersion] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:okAction];
+            [settingsViewController presentViewController:alert animated:YES completion:nil];
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"youTabFakePremium_enabled"];
+            return NO;
+        }
+        [settingsViewController reloadData];
+        SHOW_RELAUNCH_YT_SNACKBAR;
+        return YES;
+    }
+    settingItemId:0
+];
+[sectionItems addObject:fakePremium];
+
 //  SWITCH_ITEM(LOC(@"Center YouTube Logo"), LOC(@"Toggle this to move the official YouTube Logo to the Center. App restart is required."), @"centerYouTubeLogo_enabled");
     SWITCH_ITEM(LOC(@"Hide YouTube Logo"), LOC(@"Toggle this to hide the YouTube Logo in the YouTube App."), @"hideYouTubeLogo_enabled");
     SWITCH_ITEM2(LOC(@"ENABLE_YT_STARTUP_ANIMATION"), LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC"), @"ytStartupAnimation_enabled");
